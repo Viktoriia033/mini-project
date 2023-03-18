@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
+    <title>Title</title>
+
+    <style>
+        #userH {
+            color: black;
+            height: 70px;
+            text-align: center;
+            font-family: 'Dosis', sans-serif;
+        }
+     body {
+         background: rgba(178,163,114,0.3);
+     }
+
+     .style_cont {
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         gap: 40px;
+         justify-items: center;
+     }
+
+        .user-block {
+
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-family: 'Dosis', sans-serif;
+            transition: 0.4s;
+            height: 120px;
+            width: 180px;
+            text-align: center;
+        }
+
+        .user-block:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .user-id {
+            font-weight: bold;
+            font-family: 'Dosis', sans-serif;
+        }
+
+        .style-btn {
+            background-color: gray;
+            border: black;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Dosis', sans-serif;
+            margin-top: 30px;
+
+        }
+
+    </style>
+</head>
+<h1 id="userH">Users</h1>
+<body>
+<div id="container"></div>
+
+
+
+
+
+
+<script>
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(value => value.json())
+        .then(value => {
+            let container = document.getElementById('container');
+            container.classList.add('style_cont')
+            for (let user of value) {
+                let block = document.createElement('div');
+                block.classList.add('user-block');
+                block.innerHTML = '<span class="user-id">' + user.id + '</span>: ' + user.name;
+                let button = document.createElement('button');
+                button.innerText = 'More information';
+                button.classList.add('style-btn');
+                button.addEventListener('click',() => {
+                   location.href = `user-details.html?id=${user.id}`;
+                });
+                block.appendChild(button);
+                container.appendChild(block);
+
+            }
+        });
+
+
+
+</script>
+</body>
+</html>
